@@ -50,10 +50,9 @@ const countriesContainer = document.querySelector('.countries');
 
  const GetInformationAboutCountry = function(country){
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-  .then(response => response, err => alert(err))
+  .then(response => response)
   .then(function(data){
-    console.log(data);
-    console.log(data[0].name.common)
+    
     const html = ` 
         <article class="country">
         <img class="country__img" src="${data[0].flags.png}" />
@@ -65,12 +64,13 @@ const countriesContainer = document.querySelector('.countries');
           <p class="country__row"><span>💰</span>${data[0].currencies[0]}</p>
         </div>
       </article> 
-                `;
+                `})
+    .catch(err => alert(err));
     countriesContainer.insertAdjacentHTML('beforeend', html);
     countriesContainer.style.opacity = 1;
 
-  })
- };
+  };
+ 
  btn.addEventListener('click', function(){
    GetInformationAboutCountry('portugal');
    GetInformationAboutCountry('usa');
