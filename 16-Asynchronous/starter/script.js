@@ -56,8 +56,8 @@ const countriesContainer = document.querySelector('.countries');
 
  //--->>> Consuming promises
 
- const GetInformationAboutPortugal = function(){
-  fetch('https://restcountries.com/v3.1/name/portugal')
+ const GetInformationAboutCountry = function(country){
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
   .then(function(response){
     return response.json();
   }).then(function(data){
@@ -70,8 +70,8 @@ const countriesContainer = document.querySelector('.countries');
           <h3 class="country__name">${data[0].name.common}</h3>
           <h4 class="country__region">${data[0].region}</h4>
           <p class="country__row"><span>👫</span>${data[0].population}</p>
-          <p class="country__row"><span>🗣️</span>${data[0].languages.por}</p>
-          <p class="country__row"><span>💰</span>${data[0].currencies.EUR.name}</p>
+          <p class="country__row"><span>🗣️</span>${data[0].languages}</p>
+          <p class="country__row"><span>💰</span>${data[0].currencies[0]}</p>
         </div>
       </article> 
                 `;
@@ -82,7 +82,9 @@ const countriesContainer = document.querySelector('.countries');
 
   })
  };
- GetInformationAboutPortugal();
+ GetInformationAboutCountry('portugal');
+ GetInformationAboutCountry('usa');
+
  
 
 
