@@ -56,13 +56,36 @@ const countriesContainer = document.querySelector('.countries');
 
  //--->>> Consuming promises
 
- const GetInformationAboutPeru = function(){
-  fetch('https://restcountries.com/v3.1/name/peru')
+ const GetInformationAboutPortugal = function(){
+  fetch('https://restcountries.com/v3.1/name/portugal')
   .then(function(response){
     return response.json();
   }).then(function(data){
     console.log(data);
+    console.log(data[0].name.common)
+    const html = ` 
+        <article class="country">
+        <img class="country__img" src="${data[0].flags.png}" />
+        <div class="country__data">
+          <h3 class="country__name">${data[0].name.common}</h3>
+          <h4 class="country__region">${data[0].region}</h4>
+          <p class="country__row"><span>👫</span>${data[0].population}</p>
+          <p class="country__row"><span>🗣️</span>${data[0].languages.por}</p>
+          <p class="country__row"><span>💰</span>${data[0].currencies.EUR.name}</p>
+        </div>
+      </article> 
+                `;
+
+    countriesContainer.insertAdjacentHTML('beforeend', html);
+    countriesContainer.style.opacity = 1;
+
+
   })
  };
- GetInformationAboutPeru();
+ GetInformationAboutPortugal();
+ 
+
+
+
+ //--->>> Chaining promises
 
