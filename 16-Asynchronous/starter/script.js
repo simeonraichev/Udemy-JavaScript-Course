@@ -50,9 +50,8 @@ const countriesContainer = document.querySelector('.countries');
 
  const GetInformationAboutCountry = function(country){
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-  .then(function(response){
-    return response.json();
-  }).then(function(data){
+  .then(response => response, err => alert(err))
+  .then(function(data){
     console.log(data);
     console.log(data[0].name.common)
     const html = ` 
