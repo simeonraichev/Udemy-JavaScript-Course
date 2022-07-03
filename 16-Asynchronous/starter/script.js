@@ -65,7 +65,7 @@ const countriesContainer = document.querySelector('.countries');
         </div>
       </article> 
                 `})
-    .catch(err => alert(err));
+    .catch(err => console.log(`${err}💥💥💥`));
     countriesContainer.insertAdjacentHTML('beforeend', html);
     countriesContainer.style.opacity = 1;
 
