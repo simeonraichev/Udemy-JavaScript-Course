@@ -46,12 +46,23 @@ const countriesContainer = document.querySelector('.countries');
             `; */
 
 
-const request = fetch('https://restcountries.eu/rest/v2/name/portugal');
-console.log(request);
+// const request = fetch('https://restcountries.com/v3.1/name/peru');
+// console.log(request);
 
 //What is a promise? - An object then is used as a placeholder for the future result of an async operation/ a containter for a async delivered value
  // ++ we don't need to rely on events and callbacks 
  // instead of nesting callbacks, we can chain promises 
  // The promise LIFECYCLE ->> PENDING - before the value is available ; SETTLED - async task has finished (They are 2 types : FULFILLED - Success! , REJECTED - An error happened!); !!!WE ARE ABLE TO HANDLE THOSE STATES OF THE OPERATION IN OUR CODE
 
- 
+ //--->>> Consuming promises
+
+ const GetInformationAboutPeru = function(){
+  fetch('https://restcountries.com/v3.1/name/peru')
+  .then(function(response){
+    return response.json();
+  }).then(function(data){
+    console.log(data);
+  })
+ };
+ GetInformationAboutPeru();
+
