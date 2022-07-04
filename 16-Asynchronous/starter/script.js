@@ -160,12 +160,21 @@ const getCountryData = function (country) {
 
       if (!neighbour) throw new Error('No neighbour found!');
 
-      // Country 2
-      return getJSON(
-        `https://restcountries.com/v2/alpha/${neighbour}`,
-        'Country not found'
-      );
-    })
+      // var arrayOfNeighbours = neighbour.split(",")
+      if(neighbour.length > 1){
+                return getJSON(
+              `https://restcountries.com/v2/alpha/${neighbour[0]}`,
+              'Country not found');
+
+      }
+        else{
+          // Country 2
+            return getJSON(
+              `https://restcountries.com/v2/alpha/${neighbour}`,
+              'Country not found');
+        }
+      })
+
 
     .then(data => renderCountry(data, 'neighbour'))
     .catch(err => {
@@ -178,7 +187,7 @@ const getCountryData = function (country) {
 };
 
 btn.addEventListener('click', function () {
-  getCountryData('portugal');
+  getCountryData('bulgaria');
   // getCountryData('peru');
 
 });
