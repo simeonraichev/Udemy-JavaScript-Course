@@ -453,23 +453,27 @@ const whereAmI = async function(){
     const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
     if(!resGeo.ok) throw new Error(`Problem getting location data!`);
     const dataGeo = await resGeo.json();
-    console.log(dataGeo);
 
 
   const res = await fetch(`https://restcountries.com/v2/name/${dataGeo.country}`);
   if(!resGeo.ok) throw new Error(`Problem getting country!`);
   const data = await res.json();
-  console.log(data);
-  renderCountry(data[0])
+  renderCountry(data[0]);
+  return (`You are in ${dataGeo.city}, ${dataGeo.country}!`);
+
 }catch(err){
     console.error(err);
     renderError(`Something went wrong ${err.message}`)
   }
 }
-btn.addEventListener('click', whereAmI);
-console.log("That output is first");
+// const city = whereAmI();
+// console.log(city); =>> not working bcs it returns a Promise
 
-//Evrywhere when we need to have .then we have await. At the beggining of the func we need to declare that it is async
+//The following code works bsc it returns callback and it get my city and country and returns them.
+whereAmI().then(city => console.log(city));
+
+
+//Everywhere when we need to have .then we have await. At the beggining of the func we need to declare that it is async
 //To get all errors we use try catch syntax
 //The catch block has access to all the errors that appear in the try block -> catch(err){alert(err.massage);}
 //NEVER IGNORE HANDLING ERROR when we have async functions!!! 
