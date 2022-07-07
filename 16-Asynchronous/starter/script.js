@@ -22,10 +22,10 @@ const renderCountry = function (data, className = '') {
   countriesContainer.style.opacity = 1;
 };
 
-// const renderError = function (msg) {
-//   countriesContainer.insertAdjacentText('beforeend', msg);
-//   countriesContainer.style.opacity = 1;
-// };
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+  countriesContainer.style.opacity = 1;
+};
 
 // const getJSON = function (url, errorMsg = 'Something went wrong') {
 //   return fetch(url).then(response => {
@@ -437,7 +437,7 @@ GOOD LUCK 😀
 
 
 //Async/Await
-//  Recreating the WhereAmI func  with  async await
+//  Recreating the WhereAmI func  with  async/await
 const getPosition = function () {
   return new Promise(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -445,21 +445,31 @@ const getPosition = function () {
 };
 
 const whereAmI = async function(){
+  try{
   const pos = await getPosition();
     const { latitude: lat, longitude: lng } = pos.coords;
 
     // Reverse geocoding
     const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    if(!resGeo.ok) throw new Error(`Problem getting location data!`);
     const dataGeo = await resGeo.json();
     console.log(dataGeo);
 
 
   const res = await fetch(`https://restcountries.com/v2/name/${dataGeo.country}`);
+  if(!resGeo.ok) throw new Error(`Problem getting country!`);
   const data = await res.json();
   console.log(data);
   renderCountry(data[0])
+}catch(err){
+    console.error(err);
+    renderError(`Something went wrong ${err.message}`)
+  }
 }
 btn.addEventListener('click', whereAmI);
 console.log("That output is first");
 
 //Evrywhere when we need to have .then we have await. At the beggining of the func we need to declare that it is async
+//To get all errors we use try catch syntax
+//The catch block has access to all the errors that appear in the try block -> catch(err){alert(err.massage);}
+//NEVER IGNORE HANDLING ERROR when we have async functions!!! 
