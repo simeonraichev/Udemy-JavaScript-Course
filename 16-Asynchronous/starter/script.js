@@ -438,11 +438,28 @@ GOOD LUCK 😀
 
 //Async/Await
 //  Recreating the WhereAmI func  with  async await
-const whereAmI = async function(country){
-  const res = await fetch(`https://restcountries.com/v2/name/${country}`);
-  console.log(res);
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = async function(){
+  const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
+
+    // Reverse geocoding
+    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    const dataGeo = await resGeo.json();
+    console.log(dataGeo);
+
+
+  const res = await fetch(`https://restcountries.com/v2/name/${dataGeo.country}`);
+  const data = await res.json();
+  console.log(data);
+  renderCountry(data[0])
 }
-whereAmI('portugal');
-console.log("That text is first");
+btn.addEventListener('click', whereAmI);
+console.log("That output is first");
 
-
+//Evrywhere when we need to have .then we have await. At the beggining of the func we need to declare that it is async
