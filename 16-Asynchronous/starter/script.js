@@ -80,6 +80,7 @@ const renderError = function (msg) {
 
  //--->>> Consuming promises
 
+<<<<<<< Updated upstream
 //  const GetInformationAboutCountry = function(country){
 //   fetch(`https://restcountries.com/v3.1/name/${country}`)
 //   .then(function(response){
@@ -472,6 +473,48 @@ const whereAmI = async function(){
 //The following code works bsc it returns callback and it get my city and country and returns them.
 whereAmI().then(city => console.log(city));
 
+=======
+ const renderError = function(errorMassage){
+  countriesContainer.insertAdjacentText('beforeend', errorMassage);
+  countriesContainer.style.opacity = 1;
+ }
+ const GetInformationAboutCountry = function(country){
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+  .then(function(response){
+    return response.json();
+  })
+  .then(function(data){
+    
+    const html = ` 
+        <article class="country">
+        <img class="country__img" src="${data[0].flags.png}" />
+        <div class="country__data">
+          <h3 class="country__name">${data[0].name.common}</h3>
+          <h4 class="country__region">${data[0].region}</h4>
+          <p class="country__row"><span>👫</span>${data[0].population}</p>
+          <p class="country__row"><span>🗣️</span>${data[0].languages}</p>
+          <p class="country__row"><span>💰</span>${data[0].currencies[0]}</p>
+        </div>
+      </article> 
+                `;
+      countriesContainer.insertAdjacentHTML('beforeend', html);
+      countriesContainer.style.opacity = 1;
+              })
+  .catch(err => {
+    countriesContainer.insertAdjacentHTML('beforeend', '');
+      renderError(`Something went wrong ${err.message}. Try again!!!`);
+      btn.style.visibility = "hidden";
+      countriesContainer.insertAdjacentHTML('beforeend', html);
+      countriesContainer.style.opacity = 1;
+    })
+
+  }
+ 
+ btn.addEventListener('click', function(){
+  console.log('clicked!')
+   GetInformationAboutCountry('portugal');
+   GetInformationAboutCountry('usa');
+>>>>>>> Stashed changes
 
 //Everywhere when we need to have .then we have await. At the beggining of the func we need to declare that it is async
 //To get all errors we use try catch syntax
