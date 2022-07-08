@@ -476,42 +476,42 @@ GOOD LUCK 😀
 // whereAmI().then(city => console.log(city));
 
 
- const GetInformationAboutCountry = function(country){
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
-  .then(function(response){
-    return response.json();
-  })
-  .then(function(data){
+//  const GetInformationAboutCountry = function(country){
+//   fetch(`https://restcountries.com/v3.1/name/${country}`)
+//   .then(function(response){
+//     return response.json();
+//   })
+//   .then(function(data){
     
-    const html = ` 
-        <article class="country">
-        <img class="country__img" src="${data[0].flags.png}" />
-        <div class="country__data">
-          <h3 class="country__name">${data[0].name.common}</h3>
-          <h4 class="country__region">${data[0].region}</h4>
-          <p class="country__row"><span>👫</span>${data[0].population}</p>
-          <p class="country__row"><span>🗣️</span>${data[0].languages}</p>
-          <p class="country__row"><span>💰</span>${data[0].currencies[0]}</p>
-        </div>
-      </article> 
-                `;
-      countriesContainer.insertAdjacentHTML('beforeend', html);
-      countriesContainer.style.opacity = 1;
-              })
-  .catch(err => {
-    countriesContainer.insertAdjacentHTML('beforeend', '');
-      renderError(`Something went wrong ${err.message}. Try again!!!`);
-      btn.style.visibility = "hidden";
-      countriesContainer.insertAdjacentHTML('beforeend', html);
-      countriesContainer.style.opacity = 1;
-    })
+//     const html = ` 
+//         <article class="country">
+//         <img class="country__img" src="${data[0].flags.png}" />
+//         <div class="country__data">
+//           <h3 class="country__name">${data[0].name.common}</h3>
+//           <h4 class="country__region">${data[0].region}</h4>
+//           <p class="country__row"><span>👫</span>${data[0].population}</p>
+//           <p class="country__row"><span>🗣️</span>${data[0].languages}</p>
+//           <p class="country__row"><span>💰</span>${data[0].currencies[0]}</p>
+//         </div>
+//       </article> 
+//                 `;
+//       countriesContainer.insertAdjacentHTML('beforeend', html);
+//       countriesContainer.style.opacity = 1;
+//               })
+//   .catch(err => {
+//     countriesContainer.insertAdjacentHTML('beforeend', '');
+//       renderError(`Something went wrong ${err.message}. Try again!!!`);
+//       btn.style.visibility = "hidden";
+//       countriesContainer.insertAdjacentHTML('beforeend', html);
+//       countriesContainer.style.opacity = 1;
+//     })
 
-  }
+//   }
  
- btn.addEventListener('click', function(){
-  console.log('clicked!')
-   GetInformationAboutCountry('portugal');
-   GetInformationAboutCountry('usa');
+//  btn.addEventListener('click', function(){
+//   console.log('clicked!')
+//    GetInformationAboutCountry('portugal');
+//    GetInformationAboutCountry('usa');
  
 
 //Everywhere when we need to have .then we have await. At the beggining of the func we need to declare that it is async
@@ -519,33 +519,48 @@ GOOD LUCK 😀
 //The catch block has access to all the errors that appear in the try block -> catch(err){alert(err.massage);}
 //NEVER IGNORE HANDLING ERROR when we have async functions!!! 
 
-const getCountriesCapitals = async function(c1, c2, c3){
-  try {
-    // const [data1] = await getJSON(
-    //   `https://restcountries.com/v2/name/${c1}`
-    // );
-    // const [data2] = await getJSON(
-    //   `https://restcountries.com/v2/name/${c2}`
-    // );
-    // const [data3] = await getJSON(
-    //   `https://restcountries.com/v2/name/${c3}`
-    // );
-    // console.log([data1.capital, data2.capital, data3.capital]);
-    //They appear one by one
+// const getCountriesCapitals = async function(c1, c2, c3){
+//   try {
+//     // const [data1] = await getJSON(
+//     //   `https://restcountries.com/v2/name/${c1}`
+//     // );
+//     // const [data2] = await getJSON(
+//     //   `https://restcountries.com/v2/name/${c2}`
+//     // );
+//     // const [data3] = await getJSON(
+//     //   `https://restcountries.com/v2/name/${c3}`
+//     // );
+//     // console.log([data1.capital, data2.capital, data3.capital]);
+//     //They appear one by one
     
-    const data = await Promise.all([
-      getJSON(`https://restcountries.com/v2/name/${c1}`),
-      getJSON(`https://restcountries.com/v2/name/${c2}`),
-      getJSON(`https://restcountries.com/v2/name/${c3}`),
-    ]);
-    console.log(data.map(d=>d[0].capital));
+//     const data = await Promise.all([
+//       getJSON(`https://restcountries.com/v2/name/${c1}`),
+//       getJSON(`https://restcountries.com/v2/name/${c2}`),
+//       getJSON(`https://restcountries.com/v2/name/${c3}`),
+//     ]);
+//     console.log(data.map(d=>d[0].capital));
 
-      }
-    catch(err){
-  console.error(err);
-      }
+//       }
+//     catch(err){
+//   console.error(err);
+//       }
  
-}
+// }
 
-getCountriesCapitals('portugal', 'bulgaria', 'greece');
- })
+// getCountriesCapitals('portugal', 'bulgaria', 'greece');
+//  })
+const timeout = function (sec) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error('Request took too long!'));
+    }, sec * 1000);
+  });
+};
+
+Promise.race([
+  getJSON(`https://restcountries.eu/rest/v2/name/tanzania`),
+  timeout(5),
+])
+  .then(res => console.log(res[0]))
+  .catch(err => console.error(err));
+
