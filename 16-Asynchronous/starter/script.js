@@ -557,10 +557,16 @@ const timeout = function (sec) {
   });
 };
 
-Promise.race([
-  getJSON(`https://restcountries.eu/rest/v2/name/tanzania`),
-  timeout(5),
-])
-  .then(res => console.log(res[0]))
-  .catch(err => console.error(err));
+// Promise.race([
+//   getJSON(`https://restcountries.eu/rest/v2/name/tanzania`),
+//   timeout(5),
+// ])
+//   .then(res => console.log(res[0]))
+//   .catch(err => console.error(err));
 
+// Promise.allSettled
+Promise.allSettled([
+  Promise.resolve('Success'),
+  Promise.reject('ERROR'),
+  Promise.resolve('Another success'),
+]).then(res => console.log(res));
