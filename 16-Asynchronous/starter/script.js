@@ -80,7 +80,7 @@ const getJSON = function (url, errorMsg = 'Something went wrong') {
 
  //--->>> Consuming promises
 
-<<<<<<< Updated upstream
+
 //  const GetInformationAboutCountry = function(country){
 //   fetch(`https://restcountries.com/v3.1/name/${country}`)
 //   .then(function(response){
@@ -475,11 +475,7 @@ GOOD LUCK 😀
 // //The following code works bsc it returns callback and it get my city and country and returns them.
 // whereAmI().then(city => console.log(city));
 
-=======
- const renderError = function(errorMassage){
-  countriesContainer.insertAdjacentText('beforeend', errorMassage);
-  countriesContainer.style.opacity = 1;
- }
+
  const GetInformationAboutCountry = function(country){
   fetch(`https://restcountries.com/v3.1/name/${country}`)
   .then(function(response){
@@ -516,7 +512,7 @@ GOOD LUCK 😀
   console.log('clicked!')
    GetInformationAboutCountry('portugal');
    GetInformationAboutCountry('usa');
->>>>>>> Stashed changes
+ 
 
 //Everywhere when we need to have .then we have await. At the beggining of the func we need to declare that it is async
 //To get all errors we use try catch syntax
@@ -544,8 +540,12 @@ const getCountriesCapitals = async function(c1, c2, c3){
     ]);
     console.log(data.map(d=>d[0].capital));
 
-}catch(err){
+      }
+    catch(err){
   console.error(err);
+      }
+ 
 }
-}
+
 getCountriesCapitals('portugal', 'bulgaria', 'greece');
+ })
