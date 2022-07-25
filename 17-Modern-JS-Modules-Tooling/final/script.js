@@ -56,7 +56,7 @@ console.log(lastPost2);
 
 const ShoppingCart2 = (function () {
   const cart = [];
-  const shippingCost = 10;
+  co nst shippingCost = 10;
   const totalPrice = 237;
   const totalQuantity = 23;
 
